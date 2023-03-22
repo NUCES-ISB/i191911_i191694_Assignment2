@@ -1,0 +1,10 @@
+pandas
+numpy
+flask
+Jinja2
+jsonify
+yfinance
+sklearn
+plotly
+datetime
+pylint

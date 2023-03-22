@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Dashboard</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h1>Live Dashboard</h1>
+  <div id="plot"></div>
+  <script>
+    var interval = 10000; // refresh every 10 seconds
+    var url = "{{ url_for('predict', ticker='AAPL') }}";
+    var layout = {
+      title: "Actual vs. Predicted Closing Price",
+      xaxis: {title: "Date"},
+      yaxis: {title: "Price"},
+      legend: {yanchor: "top", y: 0.99, xanchor: "left", x: 0.01},
+      margin: {l: 20, r: 20, t: 60, b: 20}
+    };
+    
+    function updatePlot() {
+      Plotly.d3.json(url, function(err, data) {
+        if (err) console.error(err);
+        Plotly.newPlot("plot", data, layout);
+      });
+    }
+    setInterval(updatePlot, interval);
+  </script>
+</body>
+</html>
